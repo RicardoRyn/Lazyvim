@@ -50,6 +50,14 @@ end, { desc = "Go to line above" })
 if vim.g.vscode then
   map("n", "u", "<Cmd>lua require('vscode').call('undo')<CR>", { desc = "Undo" })
   map("n", "<C-r>", "<Cmd>lua require('vscode').call('redo')<CR>", { desc = "Redo" })
+  -- 取消这些映射，尽量保证vscode-neovim不会崩
+  unmap("n", "<leader>K", { desc = "Keywordprg" })
+  unmap("n", "<leader>l", { desc = "Lazy" })
+  unmap("n", "<leader>L", { desc = "LazyVim Changelog" })
+  unmap("n", "<leader>n", { desc = "Notification History" })
+  unmap("n", "<leader>.", { desc = "Toggle Scratch Buffer" })
+  unmap("n", "<leader>`", { desc = "Switch to Other Buffer" })
+  unmap("n", "<leader>qq", { desc = "Quit All" })
 
   -- 开关vscode中的侧栏
   map(
