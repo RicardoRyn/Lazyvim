@@ -48,6 +48,8 @@ end, { desc = "Go to line above" })
 
 -- VScode-neovim中的设置
 if vim.g.vscode then
+  vim.api.nvim_exec2("nmap j gj", {output=false})
+  vim.api.nvim_exec2("nmap k gk", {output=false})
   map("n", "u", "<Cmd>lua require('vscode').call('undo')<CR>", { desc = "Undo" })
   map("n", "<C-r>", "<Cmd>lua require('vscode').call('redo')<CR>", { desc = "Redo" })
   -- 取消这些映射，尽量保证vscode-neovim不会崩
