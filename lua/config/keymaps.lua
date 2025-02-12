@@ -31,14 +31,17 @@ end, { desc = "Go to previous any begining of words" })
 map({ "n", "v" }, "<leader><leader>v", function()
   hop.hint_words({ direction = directions.BEFORE_CURSOR })
 end, { desc = "Go to previous any end of words" })
+
 -- leader leader l
 map({ "n", "v" }, "<leader><leader>l", function()
-  hop.hint_camel_case({ direction = directions.AFTER_CURSOR })
+  hop.hint_camel_case({ direction = directions.AFTER_CURSOR, hint_position = positions.END })
 end, { desc = "Go to next any begining of words" })
+
 -- leader leader h
 map({ "n", "v" }, "<leader><leader>h", function()
-  hop.hint_camel_case({ direction = directions.BEFORE_CURSOR })
+  hop.hint_camel_case({ direction = directions.BEFORE_CURSOR, hint_position = positions.END })
 end, { desc = "Go to previous any begining of words" })
+
 -- leader leader j
 map({ "n", "v" }, "<leader><leader>j", function()
   hop.hint_lines({ direction = directions.AFTER_CURSOR })
