@@ -14,7 +14,7 @@ if vim.g.neovide then
   -- 设置标签颜色
   vim.g.neovide_title_background_color =
     string.format("%x", vim.api.nvim_get_hl(0, { id = vim.api.nvim_get_hl_id_by_name("Normal") }).bg)
-  vim.g.neovide_title_text_color = "pink"
+  vim.g.neovide_title_text_color = "#58913d"
   -- 其他设置
   vim.o.guifont = "JetBrainsMono Nerd Font:h12" -- neovide字体及其字体大小
   vim.g.neovide_scale_factor = 1.0 -- 界面字体缩放大小
