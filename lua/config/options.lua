@@ -7,16 +7,14 @@ local opt = vim.opt
 vim.g.autoformat = false
 opt.clipboard = ""
 opt.wrap = true
-opt.relativenumber = false
+opt.relativenumber = true
 
 if vim.g.neovide then
   -- Put anything you want to happen only in Neovide here
-
   -- 设置标签颜色
   vim.g.neovide_title_background_color =
     string.format("%x", vim.api.nvim_get_hl(0, { id = vim.api.nvim_get_hl_id_by_name("Normal") }).bg)
   vim.g.neovide_title_text_color = "pink"
-
   -- 其他设置
   vim.o.guifont = "JetBrainsMono Nerd Font:h12" -- neovide字体及其字体大小
   vim.g.neovide_scale_factor = 1.0 -- 界面字体缩放大小
