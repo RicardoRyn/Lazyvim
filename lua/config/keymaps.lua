@@ -9,6 +9,14 @@ map({ "i", "v" }, "j;", "<Esc>")
 map("n", "<leader>h", "<cmd>:noh<cr>", { desc = "No highlight" })
 map("n", "<C-f>", "5j", { noremap = true, silent = true })
 map("n", "<C-b>", "5k", { noremap = true, silent = true })
+map("v", "<C-c>", '"+y') -- 让neovim中C-c可以复制内容到剪贴板
+
+if vim.g.neovide then
+  map("v", "<C-c>", '"+y') -- 让neovide中C-c可以复制内容到剪贴板
+  vim.keymap.set({ "n", "v", "s", "x", "o", "i", "l", "c", "t" }, "<C-S-v>", function()
+    vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+  end, { noremap = true, silent = true })  -- 让neovide中C-S-v可以粘贴剪贴板内容
+end
 
 -- for hop.nvim
 local hop = require("hop")
@@ -53,8 +61,8 @@ end, { desc = "Go to line above" })
 
 -- VScode-neovim中的设置
 if vim.g.vscode then
-  vim.api.nvim_exec2("nmap j gj", {output=false})
-  vim.api.nvim_exec2("nmap k gk", {output=false})
+  vim.api.nvim_exec2("nmap j gj", { output = false })
+  vim.api.nvim_exec2("nmap k gk", { output = false })
   map("n", "u", "<Cmd>lua require('vscode').call('undo')<CR>", { desc = "Undo" })
   map("n", "<C-r>", "<Cmd>lua require('vscode').call('redo')<CR>", { desc = "Redo" })
   -- 取消这些映射，尽量保证vscode-neovim不会崩
