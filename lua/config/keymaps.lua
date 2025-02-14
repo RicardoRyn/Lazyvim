@@ -77,17 +77,19 @@ if vim.g.vscode then
     "<Cmd>lua require('vscode').call('workbench.action.toggleActivityBarVisibility')<CR>",
     { desc = "toggleActivityBarVisibility" }
   )
+  -- vscode中markdown文档的预览
+  map(
+    "n",
+    "<C-k><C-v>",
+    "<Cmd>lua require('vscode').call('markdown-preview-enhanced.openPreviewToTheSide')<CR>",
+    { desc = "openPreviewToTheSide" }
+  )
 end
 
 -- neovide中的配置
 if vim.g.neovide then
   map("v", "<C-c>", '"+y') -- 让neovide中C-c可以复制内容到剪贴板
-  map(
-    { "n", "v", "s", "x", "o", "i", "l", "c", "t" }, 
-    "<C-S-v>", 
-    function()
-      vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
-    end,
-    { noremap = true, silent = true }
-  )  -- 让neovide中C-S-v可以粘贴剪贴板内容
+  map({ "n", "v", "s", "x", "o", "i", "l", "c", "t" }, "<C-S-v>", function()
+    vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+  end, { noremap = true, silent = true }) -- 让neovide中C-S-v可以粘贴剪贴板内容
 end
