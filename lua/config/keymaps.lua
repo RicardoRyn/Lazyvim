@@ -5,7 +5,8 @@
 local map = vim.keymap.set
 local unmap = vim.keymap.del
 
-map({ "i", "v" }, "j;", "<Esc>")
+map({ "i", "v" }, "jk", "<Esc>")
+map({ "n", "v" }, "J", "<Nop>")
 map("n", "<leader>h", "<cmd>:noh<cr>", { desc = "No highlight" })
 map("n", "<C-f>", "5j", { noremap = true, silent = true })
 map("n", "<C-b>", "5k", { noremap = true, silent = true })
