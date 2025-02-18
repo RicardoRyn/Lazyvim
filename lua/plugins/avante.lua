@@ -1,5 +1,4 @@
--- -- 暂时使用 Copilot，因为 Deepseek 有点慢
--- return {}
+-- reture {}
 
 return {
   {
@@ -19,7 +18,7 @@ return {
       },
       auto_suggestions_provider = "deepseek",
       behaviour = {
-        auto_suggestions = true, -- 很贵，实验选项，注意开启与否
+        auto_suggestions = false, -- Experimental stage
         auto_set_highlight_group = true,
         auto_set_keymaps = true,
         auto_apply_diff_after_generation = false,
