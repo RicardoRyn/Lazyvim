@@ -1,6 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  opts = {},
+  opts = { ensure_installed = { "nu" } },
   config = function()
     require("nvim-treesitter.configs").setup({
       incremental_selection = {
