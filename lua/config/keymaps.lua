@@ -11,6 +11,8 @@ map("n", "<leader>h", "<cmd>:noh<cr>", { desc = "No highlight" })
 map("n", "<C-f>", "5j", { noremap = true, silent = true })
 map("n", "<C-b>", "5k", { noremap = true, silent = true })
 map("v", "<C-c>", '"+y') -- 让neovim中C-c可以复制内容到剪贴板
+map("n", "<", "<<", {})
+map("n", ">", ">>", {})
 
 -- for hop.nvim
 local hop = require("hop")
@@ -18,7 +20,7 @@ local directions = require("hop.hint").HintDirection
 local positions = require("hop.hint").HintPosition
 -- leader leader w
 map({ "n", "v" }, "<leader><leader>w", function()
-  hop.hint_words({ direction = directions.AFTER_CURSOR, hint_position = positions.END })
+hop.hint_words({ direction = directions.AFTER_CURSOR, hint_position = positions.END })
 end, { desc = "Go to next any begining of words" })
 -- leader leader e
 map({ "n", "v" }, "<leader><leader>e", function()
