@@ -1,5 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  vscode = false,
   config = function()
     require("nvim-treesitter.configs").setup({
       incremental_selection = {

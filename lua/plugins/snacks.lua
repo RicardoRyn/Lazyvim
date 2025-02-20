@@ -1,5 +1,6 @@
 return {
   "snacks.nvim",
+  vscode = false,
   opts = {
     dashboard = {
       -- dashboard configuration

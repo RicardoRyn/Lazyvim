@@ -5,6 +5,9 @@
 local map = vim.keymap.set
 local unmap = vim.keymap.del
 
+-- -- map some basic shortcuts
+-- map("n", "<leader><leader>q", "<cmd>q<cr>", { desc = "Quit Current Window" })
+
 map({ "i", "v" }, "jk", "<Esc>")
 map({ "n", "v" }, "J", "<Nop>")
 map("n", "<leader>h", "<cmd>:noh<cr>", { desc = "No highlight" })
@@ -20,7 +23,7 @@ local directions = require("hop.hint").HintDirection
 local positions = require("hop.hint").HintPosition
 -- leader leader w
 map({ "n", "v" }, "<leader><leader>w", function()
-hop.hint_words({ direction = directions.AFTER_CURSOR, hint_position = positions.END })
+  hop.hint_words({ direction = directions.AFTER_CURSOR, hint_position = positions.END })
 end, { desc = "Go to next any begining of words" })
 -- leader leader e
 map({ "n", "v" }, "<leader><leader>e", function()
@@ -52,7 +55,42 @@ map({ "n", "v" }, "<leader><leader>k", function()
   hop.hint_lines({ direction = directions.BEFORE_CURSOR })
 end, { desc = "Go to line above" })
 
--- VScode-neovim中的设置
+-- 以下命令在vscode中容易导致崩溃
+if not vim.g.vscode then
+  -- close buffer
+  map("n", "<leader>v", function()
+    require("mini.bufremove").delete(0, true)
+  end, { desc = "Close current buffer" })
+
+  -- toggleterm
+  map("n", "<leader>th", "<cmd>ToggleTerm size=15 direction=horizontal<cr>", { desc = "ToggleTerm horizontal split" })
+  map("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "ToggleTerm float" })
+  map("n", "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "ToggleTerm vertical split" })
+
+  -- 移动 buffer
+  local moveBy = function(dir)
+    if dir == "left" then
+      dir = -1
+    else
+      dir = 1
+    end
+    local moveBy = vim.v.count
+    if moveBy == 0 then
+      moveBy = 1
+    end
+    local myBufferline = require("bufferline")
+    for _ = 1, moveBy, 1 do
+      myBufferline.move(dir)
+    end
+  end
+  vim.keymap.set("n", "<b", function()
+    moveBy("left")
+  end, { desc = "Move current buffer to left" })
+  vim.keymap.set("n", ">b", function()
+    moveBy("right")
+  end, { desc = "Move current buffer to right" })
+end
+
 if vim.g.vscode then
   vim.api.nvim_exec2("nmap j gj", { output = false })
   vim.api.nvim_exec2("nmap k gk", { output = false })

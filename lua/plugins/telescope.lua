@@ -1,5 +1,6 @@
 return {
   "nvim-telescope/telescope.nvim",
+  vscode = false,
   keys = {
     { "<leader>fz", "<cmd>Telescope find_files cwd=%:p:h<cr>", desc = "Find files (cwd)" },
     -- disable the default keymap to search files
@@ -60,7 +61,5 @@ return {
       end,
       desc = "Find buffers",
     },
-    -- add a keymap to browse plugin files
-    { "<leader>fp", false },
   }
 }

@@ -2,10 +2,21 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
-local opt = vim.opt
 
 vim.g.autoformat = false
+vim.g.neovide_cursor_vfx_mode = "pixiedust"
+-- vim.g.neovide_cursor_vfx_mode = "torpedo"
+vim.g.neovide_cursor_vfx_particle_density = 100.0
+vim.g.neovide_floating_shadow = false
+vim.g.neovide_input_ime = true
+vim.g.neovide_hide_mouse_when_typing = true
+
+local opt = vim.opt
+
+opt.conceallevel = 0  -- 不隐藏任何文本
+-- opt.shell = "nu"  -- 设置 Nushell 为默认终端
 opt.clipboard = ""
+opt.spell = false
 opt.wrap = true
 opt.relativenumber = true
 

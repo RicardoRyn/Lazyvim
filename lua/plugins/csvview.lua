@@ -1,5 +1,6 @@
 return {
   "hat0uma/csvview.nvim",
+  vscode = true,
   ---@module "csvview"
   ---@type CsvView.Options
   opts = {
