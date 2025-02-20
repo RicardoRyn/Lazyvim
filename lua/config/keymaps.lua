@@ -62,11 +62,6 @@ if not vim.g.vscode then
     require("mini.bufremove").delete(0, true)
   end, { desc = "Close current buffer" })
 
-  -- toggleterm
-  map("n", "<leader>th", "<cmd>ToggleTerm size=15 direction=horizontal<cr>", { desc = "ToggleTerm horizontal split" })
-  map("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "ToggleTerm float" })
-  map("n", "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "ToggleTerm vertical split" })
-
   -- 移动 buffer
   local moveBy = function(dir)
     if dir == "left" then

@@ -14,7 +14,7 @@ vim.g.neovide_hide_mouse_when_typing = true
 local opt = vim.opt
 
 opt.conceallevel = 0  -- 不隐藏任何文本
--- opt.shell = "nu"  -- 设置 Nushell 为默认终端
+opt.shell = "nu"  -- 设置 Nushell 为默认终端
 opt.clipboard = ""
 opt.spell = false
 opt.wrap = true
