@@ -2,11 +2,11 @@ return {
   "nvim-telescope/telescope.nvim",
   vscode = false,
   keys = {
-    { "<leader>fz", "<cmd>Telescope find_files cwd=%:p:h<cr>", desc = "Find files (cwd)" },
     -- disable the default keymap to search files
     { "<leader><space>", false },
     -- disable the keymap to grep file
     { "<leader>/", false },
+
     -- change a keymap
     {
       "<leader>ff",
@@ -43,16 +43,16 @@ return {
     {
       "<leader>fc",
       function()
-        require("telescope.builtin").commands()
+        require("telescope.builtin").grep_string()
       end,
-      desc = "Find commands",
+      desc = "Find word under cursor",
     },
     {
       "<leader>fC",
       function()
-        require("telescope.builtin").grep_string()
+        require("telescope.builtin").commands()
       end,
-      desc = "Find word under cursor",
+      desc = "Find commands",
     },
     {
       "<leader>fb",
@@ -61,5 +61,9 @@ return {
       end,
       desc = "Find buffers",
     },
+    { "<leader>fz",
+      "<cmd>Telescope find_files cwd=%:p:h<cr>",
+      desc = "Find files (cwd)" 
+    }
   }
 }

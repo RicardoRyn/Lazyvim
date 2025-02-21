@@ -5,10 +5,7 @@
 local map = vim.keymap.set
 local unmap = vim.keymap.del
 
--- -- map some basic shortcuts
--- map("n", "<leader><leader>q", "<cmd>q<cr>", { desc = "Quit Current Window" })
-
-map({ "i", "v" }, "jk", "<Esc>")
+map({ "i" }, "jk", "<Esc>")
 map({ "n", "v" }, "J", "<Nop>")
 map("n", "<leader>h", "<cmd>:noh<cr>", { desc = "No highlight" })
 map("n", "<C-f>", "5j", { noremap = true, silent = true })
@@ -89,7 +86,7 @@ end
 if vim.g.vscode then
   vim.api.nvim_exec2("nmap j gj", { output = false })
   vim.api.nvim_exec2("nmap k gk", { output = false })
-   map("n", "<leader><leader>q", "<Cmd>lua require('vscode').call('workbench.action.closeWindow')<CR>", { desc = "Quit VSCode" })
+   map("n", "<leader>qq", "<Cmd>lua require('vscode').call('workbench.action.closeWindow')<CR>", { desc = "Quit VSCode" })
    map("n", "<leader>c", "<Cmd>lua require('vscode').call('workbench.action.closeEditorInAllGroups')<CR>", { desc = "Close Current Tab" })
   map("n", "u", "<Cmd>lua require('vscode').call('undo')<CR>", { desc = "Undo" })
   map("n", "<C-r>", "<Cmd>lua require('vscode').call('redo')<CR>", { desc = "Redo" })
@@ -100,7 +97,6 @@ if vim.g.vscode then
   unmap("n", "<leader>n", { desc = "Notification History" })
   unmap("n", "<leader>.", { desc = "Toggle Scratch Buffer" })
   unmap("n", "<leader>`", { desc = "Switch to Other Buffer" })
-  unmap("n", "<leader>qq", { desc = "Quit All" })
   -- 开关vscode中的侧栏
   map(
     "n",
