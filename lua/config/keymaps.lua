@@ -58,7 +58,7 @@ end, { desc = "Go to line above" })
 -- 以下命令在vscode中容易导致崩溃
 if not vim.g.vscode then
   -- close buffer
-  map("n", "<leader>v", function()
+  map("n", "<leader>c", function()
     require("mini.bufremove").delete(0, true)
   end, { desc = "Close current buffer" })
 
@@ -89,6 +89,8 @@ end
 if vim.g.vscode then
   vim.api.nvim_exec2("nmap j gj", { output = false })
   vim.api.nvim_exec2("nmap k gk", { output = false })
+   map("n", "<leader><leader>q", "<Cmd>lua require('vscode').call('workbench.action.closeWindow')<CR>", { desc = "Quit VSCode" })
+   map("n", "<leader>c", "<Cmd>lua require('vscode').call('workbench.action.closeEditorInAllGroups')<CR>", { desc = "Close Current Tab" })
   map("n", "u", "<Cmd>lua require('vscode').call('undo')<CR>", { desc = "Undo" })
   map("n", "<C-r>", "<Cmd>lua require('vscode').call('redo')<CR>", { desc = "Redo" })
   -- 取消这些映射，尽量保证vscode-neovim不会崩
