@@ -88,8 +88,18 @@ end
 if vim.g.vscode then
   vim.api.nvim_exec2("nmap j gj", { output = false })
   vim.api.nvim_exec2("nmap k gk", { output = false })
-   map("n", "<leader>qq", "<Cmd>lua require('vscode').call('workbench.action.closeWindow')<CR>", { desc = "Quit VSCode" })
-   map("n", "<leader>c", "<Cmd>lua require('vscode').call('workbench.action.closeEditorInAllGroups')<CR>", { desc = "Close Current Tab" })
+  map(
+    "n",
+    "<leader>qq",
+    "<Cmd>lua require('vscode').call('workbench.action.closeWindow')<CR>",
+    { desc = "Quit VSCode" }
+  )
+  map(
+    "n",
+    "<leader>c",
+    "<Cmd>lua require('vscode').call('workbench.action.closeEditorInAllGroups')<CR>",
+    { desc = "Close Current Tab" }
+  )
   map("n", "u", "<Cmd>lua require('vscode').call('undo')<CR>", { desc = "Undo" })
   map("n", "<C-r>", "<Cmd>lua require('vscode').call('redo')<CR>", { desc = "Redo" })
   -- 取消这些映射，尽量保证vscode-neovim不会崩
