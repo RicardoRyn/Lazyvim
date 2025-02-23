@@ -13,8 +13,6 @@ map("n", "<leader>h", "<cmd>:noh<cr>", { desc = "No highlight" })
 map("n", "<C-f>", "5j", { noremap = true, silent = true })
 map("n", "<C-b>", "5k", { noremap = true, silent = true })
 map("v", "<C-c>", '"+y') -- 让neovim中C-c可以复制内容到剪贴板
-map("n", "<", "<<", {})
-map("n", ">", ">>", {})
 
 -- for hop.nvim
 local hop = require("hop")
