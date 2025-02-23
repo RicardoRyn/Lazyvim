@@ -1,4 +1,4 @@
--- reture {}
+-- return {}
 
 return {
   "yetone/avante.nvim",

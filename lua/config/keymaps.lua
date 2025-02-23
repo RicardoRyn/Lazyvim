@@ -129,6 +129,9 @@ if vim.g.vscode then
     "<Cmd>lua require('vscode').call('markdown-preview-enhanced.openPreviewToTheSide')<CR>",
     { desc = "openPreviewToTheSide" }
   )
+  -- vscode中使用vscode的格式化程序
+  map("n", "<leader>cf", "<Cmd>lua require('vscode').call('editor.action.formatDocument')<CR>", { desc = "Format" })
+  map("v", "<leader>cf", "<Cmd>lua require('vscode').call('editor.action.formatSelection')<CR>", { desc = "Format" })
 end
 
 -- neovide中的配置
