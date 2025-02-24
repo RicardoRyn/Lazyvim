@@ -13,6 +13,7 @@ map("n", "<leader>h", "<cmd>:noh<cr>", { desc = "No highlight" })
 map("n", "<C-f>", "5j", { noremap = true, silent = true })
 map("n", "<C-b>", "5k", { noremap = true, silent = true })
 map("v", "<C-c>", '"+y') -- 让neovim中C-c可以复制内容到剪贴板
+map("n", "<leader>rn", ":IncRename ") -- 让neovim中C-c可以复制内容到剪贴板
 
 -- for hop.nvim
 local hop = require("hop")
@@ -84,6 +85,14 @@ if not vim.g.vscode then
 end
 
 if vim.g.vscode then
+  -- 取消这些映射，尽量保证vscode-neovim不会崩
+  unmap("n", "<leader>K", { desc = "Keywordprg" })
+  unmap("n", "<leader>l", { desc = "Lazy" })
+  unmap("n", "<leader>L", { desc = "LazyVim Changelog" })
+  unmap("n", "<leader>n", { desc = "Notification History" })
+  unmap("n", "<leader>.", { desc = "Toggle Scratch Buffer" })
+  unmap("n", "<leader>`", { desc = "Switch to Other Buffer" })
+
   vim.api.nvim_exec2("nmap j gj", { output = false })
   vim.api.nvim_exec2("nmap k gk", { output = false })
   map(
@@ -100,13 +109,6 @@ if vim.g.vscode then
   )
   map("n", "u", "<Cmd>lua require('vscode').call('undo')<CR>", { desc = "Undo" })
   map("n", "<C-r>", "<Cmd>lua require('vscode').call('redo')<CR>", { desc = "Redo" })
-  -- 取消这些映射，尽量保证vscode-neovim不会崩
-  unmap("n", "<leader>K", { desc = "Keywordprg" })
-  unmap("n", "<leader>l", { desc = "Lazy" })
-  unmap("n", "<leader>L", { desc = "LazyVim Changelog" })
-  unmap("n", "<leader>n", { desc = "Notification History" })
-  unmap("n", "<leader>.", { desc = "Toggle Scratch Buffer" })
-  unmap("n", "<leader>`", { desc = "Switch to Other Buffer" })
   -- 开关vscode中的侧栏
   map(
     "n",
@@ -128,8 +130,8 @@ if vim.g.vscode then
     { desc = "openPreviewToTheSide" }
   )
   -- vscode中使用vscode的格式化程序
-  map("n", "<leader>cf", "<Cmd>lua require('vscode').call('editor.action.formatDocument')<CR>", { desc = "Format" })
-  map("v", "<leader>cf", "<Cmd>lua require('vscode').call('editor.action.formatSelection')<CR>", { desc = "Format" })
+  -- map("n", "<leader>cf", "<Cmd>lua require('vscode').call('editor.action.formatDocument')<CR><CR>", { desc = "Format" })
+  -- map("v", "<leader>cf", "<Cmd>lua require('vscode').call('editor.action.formatSelection')<CR><CR>", { desc = "Format" })
 end
 
 -- neovide中的配置
