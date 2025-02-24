@@ -6,14 +6,15 @@ local map = vim.keymap.set
 local unmap = vim.keymap.del
 
 map({ "i" }, "jk", "<Esc>")
-map({ "n", "v" }, "J", "<Nop>")
-map({ "v" }, "U", "<Nop>")
-map({ "v" }, "u", "<Nop>")
 map("n", "<leader>h", "<cmd>:noh<cr>", { desc = "No highlight" })
 map("n", "<C-f>", "5j", { noremap = true, silent = true })
 map("n", "<C-b>", "5k", { noremap = true, silent = true })
 map("v", "<C-c>", '"+y') -- 让neovim中C-c可以复制内容到剪贴板
 map("n", "<leader>rn", ":IncRename ") -- 让neovim中C-c可以复制内容到剪贴板
+-- 禁用部分lazyvim默认快捷键
+map({ "n", "v" }, "J", "<Nop>")
+map({ "v" }, "U", "<Nop>")
+map({ "v" }, "u", "<Nop>")
 
 -- for hop.nvim
 local hop = require("hop")
@@ -53,13 +54,13 @@ map({ "n", "v" }, "<leader><leader>k", function()
   hop.hint_lines({ direction = directions.BEFORE_CURSOR })
 end, { desc = "Go to line above" })
 
--- 以下命令在vscode中容易导致崩溃
 if not vim.g.vscode then
+  -- 以下命令在vscode中容易导致崩溃
   -- close buffer
-  map("n", "<leader>c", function()
+  unmap("n", "<leader>l", { desc = "Lazy" })
+  map("n", "<leader>ll", function()
     require("mini.bufremove").delete(0, true)
   end, { desc = "Close current buffer" })
-
   -- 移动 buffer
   local moveBy = function(dir)
     if dir == "left" then
@@ -82,9 +83,8 @@ if not vim.g.vscode then
   vim.keymap.set("n", ">b", function()
     moveBy("right")
   end, { desc = "Move current buffer to right" })
-end
-
-if vim.g.vscode then
+else
+  -- vscode中的配置
   -- 取消这些映射，尽量保证vscode-neovim不会崩
   unmap("n", "<leader>K", { desc = "Keywordprg" })
   unmap("n", "<leader>l", { desc = "Lazy" })
@@ -92,7 +92,7 @@ if vim.g.vscode then
   unmap("n", "<leader>n", { desc = "Notification History" })
   unmap("n", "<leader>.", { desc = "Toggle Scratch Buffer" })
   unmap("n", "<leader>`", { desc = "Switch to Other Buffer" })
-
+  -- 常规快捷键，尽量与nvim本身保持一致，但是使用vscode的方式
   vim.api.nvim_exec2("nmap j gj", { output = false })
   vim.api.nvim_exec2("nmap k gk", { output = false })
   map(
@@ -103,7 +103,7 @@ if vim.g.vscode then
   )
   map(
     "n",
-    "<leader>c",
+    "<leader>ll",
     "<Cmd>lua require('vscode').call('workbench.action.closeEditorInAllGroups')<CR>",
     { desc = "Close Current Tab" }
   )
@@ -136,8 +136,10 @@ end
 
 -- neovide中的配置
 if vim.g.neovide then
-  map("v", "<C-c>", '"+y') -- 让neovide中C-c可以复制内容到剪贴板
+  -- 让neovide中C-c可以复制内容到剪贴板
+  map("v", "<C-c>", '"+y')
+  -- 让neovide中C-S-v可以粘贴剪贴板内容
   map({ "n", "v", "s", "x", "o", "i", "l", "c", "t" }, "<C-S-v>", function()
     vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
-  end, { noremap = true, silent = true }) -- 让neovide中C-S-v可以粘贴剪贴板内容
+  end, { noremap = true, silent = true })
 end
