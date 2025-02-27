@@ -56,6 +56,8 @@ end, { desc = "Go to line above" })
 
 if not vim.g.vscode then
   -- 以下命令在vscode中容易导致崩溃
+  -- for csvview.lua
+  map("n", "<leader>csv", "<cmd>CsvViewToggle<cr>", { desc = "CsvViewToggle" })
   -- close buffer
   unmap("n", "<leader>l", { desc = "Lazy" })
   map("n", "<leader>ll", function()
