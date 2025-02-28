@@ -4,22 +4,20 @@
 
 local map = vim.keymap.set
 local unmap = vim.keymap.del
+local hop = require("hop")
+local directions = require("hop.hint").HintDirection
+local positions = require("hop.hint").HintPosition
 
-map({ "i" }, "jk", "<Esc>")
+------------------------------------
+------- nvim和vscode共用部分 -------
+------------------------------------
+
 map("n", "<leader>h", "<cmd>:noh<cr>", { desc = "No highlight" })
-map("n", "<C-f>", "5j", { noremap = true, silent = true })
-map("n", "<C-b>", "5k", { noremap = true, silent = true })
-map("v", "<C-c>", '"+y') -- 让neovim中C-c可以复制内容到剪贴板
-map("n", "<leader>rn", ":IncRename ") -- 让neovim中C-c可以复制内容到剪贴板
 -- 禁用部分lazyvim默认快捷键
 map({ "n", "v" }, "J", "<Nop>")
 map({ "v" }, "U", "<Nop>")
 map({ "v" }, "u", "<Nop>")
-
 -- for hop.nvim
-local hop = require("hop")
-local directions = require("hop.hint").HintDirection
-local positions = require("hop.hint").HintPosition
 -- leader leader w
 map({ "n", "v" }, "<leader><leader>w", function()
   hop.hint_words({ direction = directions.AFTER_CURSOR, hint_position = positions.END })
@@ -55,6 +53,17 @@ map({ "n", "v" }, "<leader><leader>k", function()
 end, { desc = "Go to line above" })
 
 if not vim.g.vscode then
+  ------------------------------------
+  ------- 仅在nvim中使用的命令 -------
+  ------------------------------------
+
+  -- 以下命令在vscode中不生效
+  map({ "i" }, "jk", "<Esc>")
+  map("v", "<C-c>", '"+y') -- 让neovim中C-c可以复制内容到剪贴板
+  map("n", "<leader>rn", ":IncRename ") -- 让nvim中更改变量名字
+  -- map("n", "<C-d>", "5j", { noremap = true, silent = true })
+  -- map("n", "<C-u>", "5k", { noremap = true, silent = true })
+
   -- 以下命令在vscode中容易导致崩溃
   -- for csvview.lua
   map("n", "<leader>csv", "<cmd>CsvViewToggle<cr>", { desc = "CsvViewToggle" })
@@ -86,7 +95,10 @@ if not vim.g.vscode then
     moveBy("right")
   end, { desc = "Move current buffer to right" })
 else
-  -- vscode中的配置
+  -------------------------------
+  ------- vscode中的配置 --------
+  -------------------------------
+
   -- 取消这些映射，尽量保证vscode-neovim不会崩
   unmap("n", "<leader>K", { desc = "Keywordprg" })
   unmap("n", "<leader>l", { desc = "Lazy" })
@@ -124,6 +136,9 @@ else
     "<Cmd>lua require('vscode').call('workbench.action.toggleActivityBarVisibility')<CR>",
     { desc = "toggleActivityBarVisibility" }
   )
+  -- vscode中使用vscode的格式化程序
+  map("n", "<leader>cf", "<Cmd>lua require('vscode').call('editor.action.formatDocument')<CR><CR>", { desc = "Format" })
+  map("v", "<leader>cf", "<Cmd>lua require('vscode').call('editor.action.formatSelection')<CR><CR>", { desc = "Format" })
   -- vscode中markdown文档的预览
   map(
     "n",
@@ -131,16 +146,15 @@ else
     "<Cmd>lua require('vscode').call('markdown-preview-enhanced.openPreviewToTheSide')<CR>",
     { desc = "openPreviewToTheSide" }
   )
-  -- vscode中使用vscode的格式化程序
-  -- map("n", "<leader>cf", "<Cmd>lua require('vscode').call('editor.action.formatDocument')<CR><CR>", { desc = "Format" })
-  -- map("v", "<leader>cf", "<Cmd>lua require('vscode').call('editor.action.formatSelection')<CR><CR>", { desc = "Format" })
 end
 
--- neovide中的配置
+-------------------------------
+------- neovide中的配置 -------
+-------------------------------
 if vim.g.neovide then
-  -- 让neovide中C-c可以复制内容到剪贴板
+  -- 让neovide中 ctrl+c 可以复制内容到剪贴板
   map("v", "<C-c>", '"+y')
-  -- 让neovide中C-S-v可以粘贴剪贴板内容
+  -- 让neovide中 ctrl+shift+v 可以粘贴剪贴板内容
   map({ "n", "v", "s", "x", "o", "i", "l", "c", "t" }, "<C-S-v>", function()
     vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
   end, { noremap = true, silent = true })
